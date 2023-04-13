@@ -572,16 +572,18 @@ function SakushuLibrary:Notify(NotificationSettings)
 end
 
 local function slideDot(dot)
-	dot:TweenPosition(UDim2.new(0, 26, 0, 2), "In", "Sine", 0.6, true)
+	dot:TweenPosition(UDim2.new(0, 26, 0, 2), "In", "Sine", 0.5, true)
 end
 local function slideBack(dot)
-	dot:TweenPosition(UDim2.new(0, 3, 0, 2), "In", "Sine", 0.6, true)
+	dot:TweenPosition(UDim2.new(0, 3, 0, 2), "In", "Sine", 0.5, true)
 end
 
 function SakushuLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	local FirstTab = false
 	local Window = {}
+
+	Topbar.Description.Text = Settings.Name
 
 	pcall(function()
 		if not Settings.ConfigurationSaving.FileName then
@@ -618,11 +620,11 @@ function SakushuLibrary:CreateWindow(Settings)
 	local Tab = {}
 
 		-- Button
-	function Tab:AutoButton(ButtonSettings)
+	function Window:AutoButton(ButtonSettings)
 		local ButtonValue = {}
 
 		local Button = Elements.Template.Auto:Clone()
-		Button.Text = ButtonSettings
+		Button.Text = ButtonSettings.Name
 		Button.Visible = true
 		Button.Parent = Elements.Template
 
@@ -640,7 +642,7 @@ function SakushuLibrary:CreateWindow(Settings)
 		
 	end
 
-	function Tab:CreateLabel(LabelText)
+	function Window:CreateLabel(LabelText)
 		local LabelValue = {}
 
 		local Label = Elements.Template.Status:Clone()
