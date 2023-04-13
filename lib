@@ -150,7 +150,7 @@ local Themes = {
 		TitleBarAccent = Color3.fromRGB(255, 255, 255),
 		Overlay = Color3.fromRGB(255,255,255),
 		Banner = Color3.fromRGB(55,55,55),
-		BannerAccent = Color3.fromRGB(87,101,242),
+		BannerAccent = Color3.fromRGB(255,255,255),
 		Content = Color3.fromRGB(49, 49, 53),
 		Button = Color3.fromRGB(40, 40, 47),
 		ButtonAccent = Color3.fromRGB(87,101,242),
@@ -167,7 +167,7 @@ local Themes = {
 		ColorPicker = Color3.fromRGB(40, 40, 47),
 		ColorPickerAccent = Color3.fromRGB(87,101,242),
 		TextField = Color3.fromRGB(40, 40, 47),
-		TextFieldAccent = Color3.fromRGB(87,101,242)
+		TextFieldAccent = Color3.fromRGB(255,255,255)
 	},
 	Jester = {
 		MainFrame = Color3.fromRGB(255,255,255),
