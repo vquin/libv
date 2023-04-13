@@ -1,8 +1,4 @@
-local Release = "Beta 8E"
 local NotificationDuration = 6.5
-local SakushuFolder = "Sakushu"
-local ConfigurationFolder = SakushuFolder.."/Configurations"
-local ConfigurationExtension = ".lua"
 
 local SakushuLibrary = {
     Flags = {},
@@ -177,36 +173,6 @@ end
 
 local function UnpackColor(Color)
 	return Color3.fromRGB(Color.R, Color.G, Color.B)
-end
-
-local function LoadConfiguration(Configuration)
-	local Data = HttpService:JSONDecode(Configuration)
-	for FlagName, FlagValue in next, Data do
-		if SakushuLibrary.Flags[FlagName] then
-			spawn(function() 
-				if SakushuLibrary.Flags[FlagName].Type == "ColorPicker" then
-					SakushuLibrary.Flags[FlagName]:Set(UnpackColor(FlagValue))
-				else
-					if SakushuLibrary.Flags[FlagName].CurrentValue or SakushuLibrary.Flags[FlagName].CurrentKeybind or SakushuLibrary.Flags[FlagName].CurrentOption or SakushuLibrary.Flags[FlagName].Color ~= FlagValue then SakushuLibrary.Flags[FlagName]:Set(FlagValue) end
-				end    
-			end)
-		else
-			SakushuLibrary:Notify({Title = "Flag Error", Content = "Sakushu was unable to find '"..FlagName.. "'' in the current script"})
-		end
-	end
-end
-
-local function SaveConfiguration()
-    if not CEnabled then return end
-    local Data = {}
-    for i, v in pairs(SakushuLibrary.Flags) do
-        if v.Type == "ColorPicker" then
-            Data[i] = PackColor(v.Color)
-        else
-            Data[i] = v.CurrentValue or v.CurrentKeybind or v.CurrentOption or v.Color
-        end
-    end
-	writefile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension, tostring(HttpService:JSONEncode(Data)))
 end
 
 local neon = (function() -- Open sourced neon module
@@ -585,27 +551,6 @@ function SakushuLibrary:CreateWindow(Settings)
 
 	Topbar.Description.Text = Settings.Name
 
-	pcall(function()
-		if not Settings.ConfigurationSaving.FileName then
-			Settings.ConfigurationSaving.FileName = tostring(game.PlaceId)
-		end
-		if not isfolder(SakushuFolder.."/".."Configuration Folders") then
-
-		end
-		if Settings.ConfigurationSaving.Enabled == nil then
-			Settings.ConfigurationSaving.Enabled = false
-		end
-		CFileName = Settings.ConfigurationSaving.FileName
-		ConfigurationFolder = Settings.ConfigurationSaving.FolderName or ConfigurationFolder
-		CEnabled = Settings.ConfigurationSaving.Enabled
-
-		if Settings.ConfigurationSaving.Enabled then
-			if not isfolder(ConfigurationFolder) then
-				makefolder(ConfigurationFolder)
-			end	
-		end
-	end)
-
 	AddDraggingFunctionality(Topbar,Main)
 
 	Notifications.Template.Visible = false
@@ -666,17 +611,6 @@ end
 
 function SakushuLibrary:Destroy()
 	Sakushu:Destroy()
-end
-
-function SakushuLibrary:LoadConfiguration()
-	if CEnabled then
-		pcall(function()
-			if isfile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension) then
-				LoadConfiguration(readfile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension))
-				SakushuLibrary:Notify({Title = "Configuration Loaded", Content = "The configuration file for this script has been loaded from a previous session"})
-			end
-		end)
-	end
 end
 
 task.delay(3.5, SakushuLibrary.LoadConfiguration, SakushuLibrary)
