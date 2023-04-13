@@ -165,7 +165,7 @@ local Themes = {
 		Dropdown = Color3.fromRGB(53, 53, 62),
 		DropdownAccent = Color3.fromRGB(97, 104, 179),
 		ColorPicker = Color3.fromRGB(53, 53, 62),
-		ColorPickerAccent = Color3.fromRGB(175,175,175),
+		ColorPickerAccent = Color3.fromRGB(87,101,242),
 		TextField = Color3.fromRGB(255, 255, 255),
 		TextFieldAccent = Color3.fromRGB(255,255,255)
 	},
@@ -2135,7 +2135,7 @@ function Material.Load(Config)
 			local Toggle = Objects.new("SmoothButton")
 			Toggle.Name = "Toggle"
 			Toggle.Size = UDim2.fromScale(1,0) + UDim2.fromOffset(0,30)
-			Toggle.ImageColor3 = Theme.Toggle
+			Toggle.ImageColor3 = Color3.fromRGB(53, 53, 62)
 			Toggle.ImageTransparency = 1
 			Toggle.Parent = PageContentFrame
 
