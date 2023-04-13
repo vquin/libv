@@ -665,3 +665,22 @@ function SakushuLibrary:CreateWindow(Settings)
 
 	return Window
 end
+
+function SakushuLibrary:Destroy()
+	Sakushu:Destroy()
+end
+
+function SakushuLibrary:LoadConfiguration()
+	if CEnabled then
+		pcall(function()
+			if isfile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension) then
+				LoadConfiguration(readfile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension))
+				SakushuLibrary:Notify({Title = "Configuration Loaded", Content = "The configuration file for this script has been loaded from a previous session"})
+			end
+		end)
+	end
+end
+
+task.delay(3.5, SakushuLibrary.LoadConfiguration, SakushuLibrary)
+
+return SakushuLibrary
